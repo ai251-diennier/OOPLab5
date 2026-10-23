@@ -107,6 +107,9 @@ public class PaintSurface extends JComponent {
 
     // Встановлення типу фігури
     public void setShapeType(int type) {
+        if (type < DrawShape.SHAPE_RECTANGLE || type > DrawShape.SHAPE_ELLIPSE) {
+            throw new IllegalArgumentException("Unknown shape type");
+        }
         this.shapeType = type;
     }
 
@@ -119,6 +122,13 @@ public class PaintSurface extends JComponent {
      * які ми додали раніше. Саме для цього і був створений список shapes.
      * Якби його не було, то постаті фігури зникали б при кожному перемальовуванні.
      */
+    public void clearShapes() {
+        shapes.clear();
+        startDrag = null;
+        endDrag = null;
+        repaint();
+    }
+
     public void paint(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
 
